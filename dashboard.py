@@ -6,14 +6,14 @@ import streamlit as st
 
 
 
-parks_name = "./data/parks.geojson"
+parks_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/parks.geojson"
 vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
 eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
-dec_name = "./data/gen_cover_dec.wgs84.COG.tif"
+dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
 class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif"
-sib_eve_name = "./data/sib_cover_eve.wgs84.COG.tif"
-sib_dec_name = "./data/sib_cover_dec.wgs84.COG.tif"
-sib_class_name = "./data/sib_classes.wgs84.COG.tif"
+sib_eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
+sib_dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
+sib_class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_classes.wgs84.COG.tif"
 
 colors = [(255, 113, 36), (1, 3, 131), (164, 227, 157), (114, 124, 216), (12, 201, 2), (12, 89, 1), (7, 37, 233)]
 labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "submediterranean", "temperate broad", "temperate needle"]
