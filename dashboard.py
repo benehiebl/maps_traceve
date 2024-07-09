@@ -69,10 +69,10 @@ vpos = gpd.read_file(vpo_name)
 #style = {"fillColor": "#00000000"}
 m2.add_gdf(vpos, layer_name="VPOs")#, style_callback=lambda x: style)
 if img_sel:
-            m2.add_circle_markers_from_xy(vpos, popup="img")
+            m2.add_circle_markers_from_xy(vpos, popup="img", max_width=550)
 
 m2.add_legend(title="Forest Type", labels=labels, colors=colors, draggable=True, position="topright")
-m2.add_colormap(label="Cover %", cmap="Greens", vmin=0, vmax=100, position="bottomright", transparent=True)
+m2.add_colormap(label="Cover %", cmap="Greens", vmin=0, vmax=100, position=(6,1), width=3, height=0.2, label_size=9, transparent=True)
 
 try:
         m2.add_inspector_gui(position='topright', opened=True)
