@@ -8,11 +8,11 @@ import streamlit as st
 
 parks_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/parks.geojson"
 vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
-eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
-dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
+eve_name = "https://api.ellipsis-drive.com/v3/path/89e0d797-2155-4d09-a1ef-afdb9021030d/raster/timestamp/d1e12231-880c-4d73-9b68-3be95d65e093/file/bec74663-424c-4ab9-8df3-e458f1288b32/data?token=epat_Z0EaGiKk6dfR9T9rpMf4Vqx9VJIFPhqYRJeWSNU7k1C59ux77E9RrGBsJdIDXG76"#"https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
+dec_name = "https://api.ellipsis-drive.com/v3/path/0fac41ec-5bc5-4f00-b653-653f5d074757/raster/timestamp/f15b78a2-6003-42bc-bc30-689348591b75/file/2e69d9b3-f309-40fa-8fd5-1fb0432d00cd/data?token=epat_7S9tm3jPpd7bXOFYjlCfdihNv886LMnIlFC8g3pOC5iKwFD1TGd3quQd9pdGfrQQ"#"https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
 class_name = 'https://api.ellipsis-drive.com/v3/path/e6c55e3d-154f-4f61-b477-128a4af5fd81/raster/timestamp/e8234b7e-c85a-461a-a12a-99754b1a72ed/tile/{z}/{x}/{y}?style=d68b956d%2d541d%2d4256%2d8901%2d8ef163c7a33c&token=epat_Kkh0lVilBZMTZFwzvyBP5IkYqQBH3cZLjPU333j30KmJlBATsYdRI4gODBANy9rW'
-sib_eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
-sib_dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
+sib_eve_name = "https://api.ellipsis-drive.com/v3/path/0744c815-c0b0-434e-841c-956f50092b46/raster/timestamp/09074588-978a-4341-8efc-24b789d65190/file/06365863-e4a1-4fa0-8126-02ec39208398/data?token=epat_Xszs3r4hzPN5ivbhGa6q52hG66j8iftEqqRfULdhPXij8aTo5G0c5w28iPsXLsP8"#"https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
+sib_dec_name = "https://api.ellipsis-drive.com/v3/path/c8105542-f760-4a50-a6c2-05ce88b9a4ff/raster/timestamp/99e155c6-ef45-4ebe-9c60-19fba674474d/file/8e3087a0-142b-40da-8f06-4859a2833ac8/data?token=epat_iQFh6o5pYQ08P0OBGVrMTIBVTocFysi8ogQcORCtZbfC1IbceTcSHwxMB9Us57io"#"https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
 sib_class_name = "https://api.ellipsis-drive.com/v3/path/2b46a0fb-bbb8-47fa-84b5-31b707e6ea50/raster/timestamp/e5831b26-33d5-4463-b5e0-f0408004d3b8/tile/{z}/{x}/{y}?style=8dd14ae9%2d5d1a%2d4efe%2dadeb%2db9792b175099&token=epat_uMqm47CrbhbMCKKt9wjGG2IZsPntPh7bHfAl9nxrP1kjpuFd9efOR1zSam6pbyRx"
 
 colors = [(255, 113, 36), (1, 3, 131), (164, 227, 157), (114, 124, 216), (12, 201, 2), (12, 89, 1), (7, 37, 233)]
@@ -37,9 +37,6 @@ m2.add_basemap("Esri.WorldImagery")
 m2.add_tile_layer(url=class_name,
                   name="Gennargentu forest type",
                   attribution="gen_classes")
-
-m2.add_cog_layer("https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif",
-        name="Gennargentu forest type 0")
 
 m2.add_cog_layer(eve_name,
         vmin=0, vmax=100,
