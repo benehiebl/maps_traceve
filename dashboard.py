@@ -10,7 +10,7 @@ parks_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data
 vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
 eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
 dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
-class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif"
+class_name = 'https://api.ellipsis-drive.com/v3/path/e6c55e3d-154f-4f61-b477-128a4af5fd81/raster/timestamp/e8234b7e-c85a-461a-a12a-99754b1a72ed/tile/{z}/{x}/{y}?style=d68b956d%2d541d%2d4256%2d8901%2d8ef163c7a33c&token=epat_Kkh0lVilBZMTZFwzvyBP5IkYqQBH3cZLjPU333j30KmJlBATsYdRI4gODBANy9rW'
 sib_eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
 sib_dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
 sib_class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_classes.wgs84.COG.tif"
@@ -34,9 +34,12 @@ img_sel = st.checkbox("Show phenology in full size")
 m2 = leafmap.Map(basemap="Esri.WorldImagery")#, height="1000px", width="1500px")
 m2.add_basemap("Esri.WorldImagery")
 
+m2.add_tile_layer(url=class_name,
+                  name="Gennargentu forest type",
+                  attribution="gen_classes")
 
-m2.add_raster(class_name ,
-        layer_name="Gennargentu forest type")
+#m2.add_raster(class_name ,
+#        layer_name="Gennargentu forest type")
 
 m2.add_raster(eve_name,
         vmin=0, vmax=100,
