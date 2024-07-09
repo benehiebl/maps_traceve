@@ -17,14 +17,14 @@ import streamlit as st
 
 
 
-parks_name = "/home/c7161037/Desktop/map_dashboard/data/parks.geojson"
-vpo_name = "/home/c7161037/Desktop/map_dashboard/data/vpo.geojson"
-eve_name = "/home/c7161037/Desktop/map_dashboard/data/gen_cover_eve.wgs84.COG.tif"
-dec_name = "/home/c7161037/Desktop/map_dashboard/data/gen_cover_dec.wgs84.COG.tif"
-class_name = "/home/c7161037/Desktop/map_dashboard/data/gen_classes.wgs84.COG.tif"
-sib_eve_name = "/home/c7161037/Desktop/map_dashboard/data/sib_cover_eve.wgs84.COG.tif"
-sib_dec_name = "/home/c7161037/Desktop/map_dashboard/data/sib_cover_dec.wgs84.COG.tif"
-sib_class_name = "/home/c7161037/Desktop/map_dashboard/data/sib_classes.wgs84.COG.tif"
+parks_name = "./data/parks.geojson"
+vpo_name = "./data/vpo.geojson"
+eve_name = "./data/gen_cover_eve.wgs84.COG.tif"
+dec_name = "./data/gen_cover_dec.wgs84.COG.tif"
+class_name = "./data/gen_classes.wgs84.COG.tif"
+sib_eve_name = "./data/sib_cover_eve.wgs84.COG.tif"
+sib_dec_name = "./data/sib_cover_dec.wgs84.COG.tif"
+sib_class_name = "./data/sib_classes.wgs84.COG.tif"
 
 colors = [(255, 113, 36), (1, 3, 131), (164, 227, 157), (114, 124, 216), (12, 201, 2), (12, 89, 1), (7, 37, 233)]
 labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "submediterranean", "temperate broad", "temperate needle"]
@@ -32,7 +32,7 @@ labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "su
 # To set a webpage title, header and subtitle
 st.set_page_config(page_title = "TRACEVE forest type and cover maps",layout = 'wide')
 st.header("TRACEVE forest type and cover maps")
-st.subheader("Interact with this dashboard using the widgets on the sidebar")
+#st.subheader("Interact with this dashboard using the widgets on the sidebar")
 st.markdown("- forest type maps were produced based on Italian Forest Vegetation Base and annual Sentinel-2 time series from 2017 to 2023 using an InceptionTime ensemble\n" \
             "- cover maps were produced using the Vegetation Plot observation collected in Sibillini and Gennargentu Nationalpark and an aggregated annual Sentinel-2 time series\n\n" \
         "NOTE: drag the forest type legend to avoid overlaps...")
