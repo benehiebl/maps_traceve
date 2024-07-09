@@ -7,8 +7,8 @@ import streamlit as st
 
 
 parks_name = "./data/parks.geojson"
-vpo_name = ""https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
-eve_name = ""https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
+vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
+eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
 dec_name = "./data/gen_cover_dec.wgs84.COG.tif"
 class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif"
 sib_eve_name = "./data/sib_cover_eve.wgs84.COG.tif"
