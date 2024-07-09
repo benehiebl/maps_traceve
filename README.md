@@ -8,9 +8,9 @@ Click on following link and give it a go:
 https://mapstraceve.streamlit.app/
 
 - Layers can be made visible using the Layer Manager in the top right corner of the map
-  ![Layer Manager](layer_manager.jpg)
+  ![Layer Manager](./misc/layer_manager.jpg)
 - by hovering over the plot observation you can inspect the plot statistics including phenology from Sentinel-2 based NDVI
-  ![Phenology](phenology.jpg)
+  ![Phenology](./misc/phenology.jpg)
 - the phenology images can be further enhanced by activating the checkbox above the map and clicking on the newly loaded plots
 
 ### Alternative Usage
