@@ -48,7 +48,7 @@ m2.add_cog_layer(dec_name,
         colormap_name="greens",
         name="Gennargentu Cover DEC")
 
-m2.add_tile_layer(url=class_name,
+m2.add_tile_layer(url=sib_class_name,
                   name="Sibillini forest type",
                   attribution="sib_classes")
 
