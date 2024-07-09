@@ -38,6 +38,9 @@ m2.add_tile_layer(url=class_name,
                   name="Gennargentu forest type",
                   attribution="gen_classes")
 
+m2.add_cog_layer("https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif",
+        name="Gennargentu forest type 0")
+
 m2.add_cog_layer(eve_name,
         vmin=0, vmax=100,
         colormap_name="greens",
