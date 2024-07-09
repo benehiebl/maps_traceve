@@ -12,6 +12,7 @@ https://mapstraceve.streamlit.app/
 - by hovering over the plot observation you can inspect the plot statistics including phenology from Sentinel-2 based NDVI
   ![Phenology](./misc/phenology.jpg)
 - the phenology images can be further enhanced by activating the checkbox above the map and clicking on the newly loaded plots
+TIPP: Fullscreen button is on the left...
 
 ### Alternative Usage
 - Download map_sibgen.html (click on file and and hit download button on the right side)
