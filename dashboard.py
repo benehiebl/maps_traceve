@@ -13,7 +13,7 @@ dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/g
 class_name = 'https://api.ellipsis-drive.com/v3/path/e6c55e3d-154f-4f61-b477-128a4af5fd81/raster/timestamp/e8234b7e-c85a-461a-a12a-99754b1a72ed/tile/{z}/{x}/{y}?style=d68b956d%2d541d%2d4256%2d8901%2d8ef163c7a33c&token=epat_Kkh0lVilBZMTZFwzvyBP5IkYqQBH3cZLjPU333j30KmJlBATsYdRI4gODBANy9rW'
 sib_eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
 sib_dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
-sib_class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_classes.wgs84.COG.tif"
+sib_class_name = "https://api.ellipsis-drive.com/v3/path/2b46a0fb-bbb8-47fa-84b5-31b707e6ea50/raster/timestamp/e5831b26-33d5-4463-b5e0-f0408004d3b8/tile/{z}/{x}/{y}?style=8dd14ae9%2d5d1a%2d4efe%2dadeb%2db9792b175099&token=epat_uMqm47CrbhbMCKKt9wjGG2IZsPntPh7bHfAl9nxrP1kjpuFd9efOR1zSam6pbyRx"
 
 colors = [(255, 113, 36), (1, 3, 131), (164, 227, 157), (114, 124, 216), (12, 201, 2), (12, 89, 1), (7, 37, 233)]
 labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "submediterranean", "temperate broad", "temperate needle"]
@@ -38,31 +38,29 @@ m2.add_tile_layer(url=class_name,
                   name="Gennargentu forest type",
                   attribution="gen_classes")
 
-#m2.add_raster(class_name ,
-#        layer_name="Gennargentu forest type")
-
-m2.add_raster(eve_name,
+m2.add_cog_layer(eve_name,
         vmin=0, vmax=100,
-        cmap="Greens",
-        layer_name="Gennargentu Cover EVE")
+        colormap_name="greens",
+        name="Gennargentu Cover EVE")
 
-m2.add_raster(dec_name,
+m2.add_cog_layer(dec_name,
         vmin=0, vmax=100,
-        cmap="Greens",
-        layer_name="Gennargentu Cover DEC")
+        colormap_name="greens",
+        name="Gennargentu Cover DEC")
 
-m2.add_raster(sib_class_name ,
-        layer_name="Sibillini forest type")
+m2.add_tile_layer(url=class_name,
+                  name="Sibillini forest type",
+                  attribution="sib_classes")
 
-m2.add_raster(sib_eve_name,
+m2.add_cog_layer(sib_eve_name,
         vmin=0, vmax=100,
-        cmap="Greens",
-        layer_name="Sibillini Cover EVE")
+        colormap_name="greens",
+        name="Sibillini Cover EVE")
 
-m2.add_raster(sib_dec_name,
+m2.add_cog_layer(sib_dec_name,
         vmin=0, vmax=100,
-        cmap="Greens",
-        layer_name="Sibillini Cover DEC")
+        colormap_name="greens",
+        name="Sibillini Cover DEC")
 
 parks = gpd.read_file(parks_name)[["siteName", "geometry"]]
 style = {"fillColor": "#00000000"}
