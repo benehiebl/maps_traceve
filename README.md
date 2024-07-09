@@ -42,3 +42,5 @@ Updates will be made regularly to this repo by adding new files but also by upda
     - cloudy pixels have been removed using scene classification (Sen2Cor) and outliers have been detected using "IQR" (see also outlier.py)
     - smoothing hase been performed using a Whittaker smoother (see also smooth.py)
 
+- TO DO: ADD Forest Type Map EU2
+
