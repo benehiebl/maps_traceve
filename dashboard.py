@@ -6,8 +6,8 @@ import streamlit as st
 
 
 
-parks_name = "/data/parks.geojson"
-vpo_name = "/data/vpo.geojson"
+parks_name = "./data/parks.geojson"
+vpo_name = "./data/vpo.geojson"
 eve_name = "./data/gen_cover_eve.wgs84.COG.tif"
 dec_name = "./data/gen_cover_dec.wgs84.COG.tif"
 class_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_classes.wgs84.COG.tif"
