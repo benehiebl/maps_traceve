@@ -1,5 +1,9 @@
 import geopandas as gpd
 import leafmap.foliumap as leafmap
+import pystac_client
+import planetary_computer as pc
+import datetime
+import numpy as np
 
 
 import streamlit as st
@@ -28,11 +32,74 @@ st.markdown("- forest type maps were produced based on Italian Forest Vegetation
 
 
 
+
+### INTEGRATE PLANETARY COMPUTER
+
+## INPUTS 
+with st.popover("Planetary Computer STAC Catalog"):
+        #with st.form(key="my_form"):
+        collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
+        tile = st.text_input("Sentinel-2 tile (Sibillini 33TUH, Gennargentu 32TNK)", "33TUH")
+        #search_start = st.date_input("Start date", "2023-01-01")
+        search_period = st.date_input("Search period", (datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)))
+        search_period = [date.strftime("%Y-%m-%d") for date in search_period]
+        cloud_cover = st.number_input("Cloud Cover", min_value=0, max_value=100, step=5, value=10)
+                #pc_button = st.form_submit_button(label='Submit')
+
+show_sat = st.checkbox("Show Sat Imagery")
+
+if show_sat:
+        catalog = pystac_client.Client.open(
+                "https://planetarycomputer.microsoft.com/api/stac/v1",
+                modifier=pc.sign_inplace)
+
+        search = catalog.search(
+        collections=[collection],
+        #intersects=intersects,
+        query = {"s2:mgrs_tile": dict(eq=tile),
+                        "eo:cloud_cover": {"lt": cloud_cover}
+                },
+        datetime=[search_period[0], search_period[1]],
+        )
+        ic = search.item_collection_as_dict()
+
+        st.markdown(f"**Found {len(ic["features"])} items for {tile}**")
+
+        n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+        n_sat = (len(ic["features"])+1) - n_sat
+        st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
+        pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
+                     []]
+        band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
+
+        
+
+
+
+
+
 img_sel = st.checkbox("Show phenology in full size")
 
 
 m2 = leafmap.Map(basemap="Esri.WorldImagery")#, height="1000px", width="1500px")
 m2.add_basemap("Esri.WorldImagery")
+
+if show_sat:
+        if "NDVI" in band:
+                m2.add_stac_layer(collection=collection,
+                              item=ic["features"][n_sat-1]["id"],
+                              expression="(B08-B04)/(B08+B04)",
+                              rescale="-1,1",
+                              colormap_name="greens",
+                              vmin=0, vmax=1,
+                              name="NDVI")  
+                m2.add_colormap(label="NDVI", cmap="Greens", vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
+        else:
+                m2.add_stac_layer(collection=collection,
+                              item=ic["features"][n_sat-1]["id"],
+                              assets=band,
+                              name=str(band))
+
 
 m2.add_tile_layer(url=class_name,
                   name="Gennargentu forest type",
