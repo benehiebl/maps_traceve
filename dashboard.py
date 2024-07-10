@@ -63,7 +63,7 @@ if show_sat:
         )
         ic = search.item_collection_as_dict()
 
-        st.markdown(f"**Found {len(ic["features"])} items for {tile}**")
+        st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
 
         n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
         n_sat = (len(ic["features"])+1) - n_sat
