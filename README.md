@@ -14,8 +14,8 @@ https://mapstraceve.streamlit.app/
 - the phenology images can be further enhanced by activating the checkbox above the map and clicking on the newly loaded plots
 - Sentinel-2 (and Landsat) imagery from Planetary Computer can be overlayed by using the popup-box
   ![sat_img](./misc/sat_img.png)
-- Use the slider to select a date and the selectionbox to choose the bands
-- Choose a combination of 3 bands for false color imagery (e.g. B04, B03, B02 for True Color or B08, B04, B03 for Color Infrared or B12, B04, B03 for False Color)
+- Use the slider to select a date and the textbox to choose the bands
+- Choose a combination of 3 bands for false color imagery (e.g. B04,B03,B02 for True Color or B08,B04,B03 for Color Infrared or B12,B04,B03 for False Color)
    ![color_inf](./misc/color_inf.png)
 
 TIPP: Fullscreen button is on the left...

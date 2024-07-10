@@ -70,8 +70,8 @@ if show_sat:
         st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
         pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
                      []]
-        band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
-
+        #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
+        band = st.text_input("Band, Band Combination (e.g. B08,B04,B03), NDVI or an expression (e.g. exp:B08-B11)", "NDVI")
         
 
 
@@ -85,7 +85,19 @@ m2 = leafmap.Map(basemap="Esri.WorldImagery")#, height="1000px", width="1500px")
 m2.add_basemap("Esri.WorldImagery")
 
 if show_sat:
-        if "NDVI" in band:
+        if band.startswith("exp:"):
+                st.write(band[4:])
+                m2.add_stac_layer(collection=collection,
+                              item=ic["features"][n_sat-1]["id"],
+                              expression=band[4:],
+                              rescale="-1,1",
+                              colormap_name="reds",
+                              #vmin=0, vmax=1,
+                              name=band)  
+                m2.add_colormap(label=band,
+                                cmap="Reds",
+                                vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
+        if band=="NDVI":
                 m2.add_stac_layer(collection=collection,
                               item=ic["features"][n_sat-1]["id"],
                               expression="(B08-B04)/(B08+B04)",
@@ -93,10 +105,13 @@ if show_sat:
                               colormap_name="greens",
                               vmin=0, vmax=1,
                               name="NDVI")  
-                m2.add_colormap(label="NDVI", cmap="Greens", vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
+                m2.add_colormap(label="NDVI",
+                                cmap="Greens",
+                                vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
         else:
                 m2.add_stac_layer(collection=collection,
                               item=ic["features"][n_sat-1]["id"],
+                              #expression=band,
                               assets=band,
                               name=str(band))
 
