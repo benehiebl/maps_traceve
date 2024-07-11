@@ -189,5 +189,5 @@ except: pass
 
 
 #m2.to_html("./map_sibgen.html")
-m2.to_streamlit(height=1000)
+m2.to_streamlit(height=800)
 #st_data = st_folium(m2, height=1000)
