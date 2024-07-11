@@ -119,7 +119,7 @@ if show_sat:
                               vmin=0, vmax=1,
                               name="NDVI")  
                 m2.add_colormap(label="NDVI",
-                                cmap="BrBg",
+                                cmap="BrBG",
                                 vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
         else:
                 m2.add_stac_layer(collection=collection,
