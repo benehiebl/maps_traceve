@@ -42,7 +42,7 @@ side = st.sidebar
 img_sel = side.checkbox("Show phenology in full size")
 
 with side.container(border=True):
-        with side.popover("Planetary Computer STAC Catalog"):
+        with st.popover("Planetary Computer STAC Catalog"):
                 #with st.form(key="my_form"):
                 collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
                 #if collection=="sentinel-2-l2a":
@@ -56,7 +56,7 @@ with side.container(border=True):
                 cloud_cover = st.number_input("Cloud Cover", min_value=0, max_value=100, step=5, value=10)
                         #pc_button = st.form_submit_button(label='Submit')
 
-        show_sat = side.checkbox("Show Sat Imagery")
+        show_sat = st.checkbox("Show Sat Imagery")
 
         if show_sat:
                 try:
