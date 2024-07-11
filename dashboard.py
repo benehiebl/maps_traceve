@@ -38,6 +38,9 @@ st.header("TRACEVE forest type and cover maps")
 ### INTEGRATE PLANETARY COMPUTER
 side = st.sidebar
 ## INPUTS 
+
+img_sel = side.checkbox("Show phenology in full size")
+
 with side.popover("Planetary Computer STAC Catalog"):
         #with st.form(key="my_form"):
         collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
@@ -83,7 +86,7 @@ if show_sat:
 
         st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
         if len(ic["features"])>1:
-                n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+                n_sat = side.slider("", min_value=1, max_value=len(ic["features"]), value=1)
         else: n_sat = 1
         n_sat = (len(ic["features"])+1) - n_sat
         st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
@@ -97,7 +100,7 @@ if show_sat:
 
 
 
-img_sel = st.checkbox("Show phenology in full size")
+
 
 
 m2 = leafmap.Map(basemap="Esri.WorldImagery")#, height="1000px", width="1500px")
