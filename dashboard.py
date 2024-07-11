@@ -28,7 +28,9 @@ st.header("TRACEVE forest type and cover maps")
 #st.subheader("Interact with this dashboard using the widgets on the sidebar")
 st.markdown("- forest type maps were produced based on Italian Forest Vegetation Base and annual Sentinel-2 time series from 2017 to 2023 using an InceptionTime ensemble\n" \
             "- cover maps were produced using the Vegetation Plot observation collected in Sibillini and Gennargentu Nationalpark and an aggregated annual Sentinel-2 time series\n\n" \
-        "**TIPP:** Use the full-screen button on the left side for a better experience (but make sure to memorize the legend/colormap befor... :D")
+        "**TIPPS:**\n" \
+        "- Use the full-screen button on the left side for a better experience (but make sure to memorize the legend/colormap befor... :D" \
+        "- if the map appears white press the Rerun button in the upper right corner of the page")
 
 
 
@@ -88,7 +90,7 @@ if show_sat:
         pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
                      ["red", "blue", "green", "nir08", "swir16", "swir22", "NDVI"]]
         #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
-        band = st.text_input("Band, Band Combination (e.g. B08,B04,B03), NDVI or an expression (e.g. exp:B08-B11)", "NDVI")
+        band = st.text_input("Band, Band Combination, NDVI or an expression", "NDVI")
         
 
 
