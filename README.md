@@ -21,7 +21,11 @@ https://mapstraceve.streamlit.app/
 - Sentinel-2 bands are: B02, B03, B04, B05, B06, B07,..., SCL
    ![color_inf](./misc/color_inf.png)
 
-TIPP: Fullscreen button is on the left...
+
+**TIPPS:**
+
+- Use the full-screen button on the left side for a better experience (but make sure to memorize the legend/colormap befor...)
+- if the map appears white press the Rerun button in the upper right corner of the page
 
 ### For fast and easy map-only view
 - Download map_sibgen.html (click on file and and hit download button on the right side)
