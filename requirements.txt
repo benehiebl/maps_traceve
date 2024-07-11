@@ -113,6 +113,7 @@ snuggs==1.4.7
 soupsieve==2.5
 stack-data==0.6.3
 streamlit==1.36.0
+streamlit_folium==0.21.1
 tenacity==8.5.0
 toml==0.10.2
 toolz==0.12.1
