@@ -39,7 +39,11 @@ st.markdown("- forest type maps were produced based on Italian Forest Vegetation
 with st.popover("Planetary Computer STAC Catalog"):
         #with st.form(key="my_form"):
         collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
-        tile = st.text_input("Sentinel-2 tile (Sibillini 33TUH, Gennargentu 32TNK)", "33TUH")
+        #if collection=="sentinel-2-l2a":
+        tile = st.text_input("Tile/Pathrow (Sibillini 33TUH/190031/190030/191030, Gennargentu 32TNK/192032)", "33TUH" if collection=="sentinel-2-l2a" else "192032")
+        #elif collection=="landsat-c2-l2":
+                #path = st.text_input("Path (Sibillini 190/, Gennargentu 132)", "33TUH")
+                #row = st.text_input("Sentinel-2 tile (Sibillini 33TUH, Gennargentu 32TNK)", "33TUH")
         #search_start = st.date_input("Start date", "2023-01-01")
         search_period = st.date_input("Search period", (datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)))
         search_period = [date.strftime("%Y-%m-%d") for date in search_period]
@@ -49,18 +53,27 @@ with st.popover("Planetary Computer STAC Catalog"):
 show_sat = st.checkbox("Show Sat Imagery")
 
 if show_sat:
+        
         catalog = pystac_client.Client.open(
                 "https://planetarycomputer.microsoft.com/api/stac/v1",
                 modifier=pc.sign_inplace)
 
-        search = catalog.search(
-        collections=[collection],
-        #intersects=intersects,
-        query = {"s2:mgrs_tile": dict(eq=tile),
-                        "eo:cloud_cover": {"lt": cloud_cover}
-                },
-        datetime=[search_period[0], search_period[1]],
-        )
+        if collection=="sentinel-2-l2a":
+                search = catalog.search(
+                        collections=[collection],
+                        query = {"s2:mgrs_tile": dict(eq=tile),
+                                "eo:cloud_cover": {"lt": cloud_cover}},
+                        datetime=[search_period[0], search_period[1]],
+                        )
+        elif collection=="landsat-c2-l2":
+                search = catalog.search(
+                        collections=[collection],
+                        query = {"landsat:wrs_path": dict(eq=tile[:3]),
+                                "landsat:wrs_row": dict(eq=tile[3:]),
+                                "eo:cloud_cover": {"lt": cloud_cover}},
+                        datetime=[search_period[0], search_period[1]],
+                        )
+
         ic = search.item_collection_as_dict()
 
         st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
@@ -69,7 +82,7 @@ if show_sat:
         n_sat = (len(ic["features"])+1) - n_sat
         st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
         pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
-                     []]
+                     ["red", "blue", "green", "nir08", "swir16", "swir22", "NDVI"]]
         #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
         band = st.text_input("Band, Band Combination (e.g. B08,B04,B03), NDVI or an expression (e.g. exp:B08-B11)", "NDVI")
         
@@ -100,7 +113,7 @@ if show_sat:
         if band=="NDVI":
                 m2.add_stac_layer(collection=collection,
                               item=ic["features"][n_sat-1]["id"],
-                              expression="(B08-B04)/(B08+B04)",
+                              expression="(B08-B04)/(B08+B04)" if collection=="sentinel-2-l2a" else "(nir08-red)/(nir08+red)",
                               rescale="-1,1",
                               colormap_name="greens",
                               vmin=0, vmax=1,
