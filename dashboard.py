@@ -115,11 +115,11 @@ if show_sat:
                               item=ic["features"][n_sat-1]["id"],
                               expression="(B08-B04)/(B08+B04)" if collection=="sentinel-2-l2a" else "(nir08-red)/(nir08+red)",
                               rescale="-1,1",
-                              colormap_name="greens",
+                              colormap_name="brbg",
                               vmin=0, vmax=1,
                               name="NDVI")  
                 m2.add_colormap(label="NDVI",
-                                cmap="Greens",
+                                cmap="BrBg",
                                 vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
         else:
                 m2.add_stac_layer(collection=collection,
