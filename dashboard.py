@@ -87,14 +87,14 @@ with side.container(border=True):
 
                 st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
                 if len(ic["features"])>1:
-                        n_sat = side.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+                        n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
                 else: n_sat = 1
                 n_sat = (len(ic["features"])+1) - n_sat
                 st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
                 pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
                         ["red", "blue", "green", "nir08", "swir16", "swir22", "NDVI"]]
                 #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
-                band = side.text_input("Band, Band Combination, NDVI or an expression", "NDVI")
+                band = st.text_input("Band, Band Combination, NDVI or an expression", "NDVI")
                 
 
 
