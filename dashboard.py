@@ -25,7 +25,7 @@ labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "su
 
 # To set a webpage title, header and subtitle
 st.set_page_config(page_title = "TRACEVE forest type and cover maps",layout = 'wide')
-st.header("TRACEVE forest type and cover maps")
+
 #st.subheader("Interact with this dashboard using the widgets on the sidebar")
 #st.markdown("- **forest type maps were produced based on Italian Forest Vegetation Base and annual Sentinel-2 time series from 2017 to 2023 using an InceptionTime ensemble**\n" \
 #            "- **cover maps were produced using the Vegetation Plot observation collected in Sibillini and Gennargentu Nationalpark and an aggregated annual Sentinel-2 time series**\n\n" \
@@ -39,6 +39,7 @@ st.header("TRACEVE forest type and cover maps")
 ### INTEGRATE PLANETARY COMPUTER
 side = st.sidebar
 ## INPUTS 
+side.header("TRACEVE forest type and cover maps")
 
 img_sel = side.checkbox("Show phenology in full size")
 
