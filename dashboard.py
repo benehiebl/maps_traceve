@@ -104,7 +104,7 @@ with side.container(border=True):
 
 
 
-m2 = leafmap.Map(basemap="Esri.WorldImagery", height=1000)#, height="1000px", width="1500px")
+m2 = leafmap.Map(basemap="Esri.WorldImagery", height=2000)#, height="1000px", width="1500px")
 m2.add_basemap("Esri.WorldTopoMap")
 m2.add_basemap("Esri.WorldImagery")
 
