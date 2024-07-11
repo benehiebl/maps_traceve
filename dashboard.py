@@ -41,60 +41,61 @@ side = st.sidebar
 
 img_sel = side.checkbox("Show phenology in full size")
 
-with side.popover("Planetary Computer STAC Catalog"):
-        #with st.form(key="my_form"):
-        collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
-        #if collection=="sentinel-2-l2a":
-        tile = st.text_input("Tile/Pathrow (Sibillini 33TUH/190031/190030/191030, Gennargentu 32TNK/192032)", "33TUH" if collection=="sentinel-2-l2a" else "192032")
-        #elif collection=="landsat-c2-l2":
-                #path = st.text_input("Path (Sibillini 190/, Gennargentu 132)", "33TUH")
-                #row = st.text_input("Sentinel-2 tile (Sibillini 33TUH, Gennargentu 32TNK)", "33TUH")
-        #search_start = st.date_input("Start date", "2023-01-01")
-        search_period = st.date_input("Search period", (datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)))
-        search_period = [date.strftime("%Y-%m-%d") for date in search_period]
-        cloud_cover = st.number_input("Cloud Cover", min_value=0, max_value=100, step=5, value=10)
-                #pc_button = st.form_submit_button(label='Submit')
+with side.container(border=True):
+        with side.popover("Planetary Computer STAC Catalog"):
+                #with st.form(key="my_form"):
+                collection = st.selectbox("Planetary Computer Collection", ("sentinel-2-l2a", "landsat-c2-l2"))
+                #if collection=="sentinel-2-l2a":
+                tile = st.text_input("Tile/Pathrow (Sibillini 33TUH/190031/190030/191030, Gennargentu 32TNK/192032)", "33TUH" if collection=="sentinel-2-l2a" else "192032")
+                #elif collection=="landsat-c2-l2":
+                        #path = st.text_input("Path (Sibillini 190/, Gennargentu 132)", "33TUH")
+                        #row = st.text_input("Sentinel-2 tile (Sibillini 33TUH, Gennargentu 32TNK)", "33TUH")
+                #search_start = st.date_input("Start date", "2023-01-01")
+                search_period = st.date_input("Search period", (datetime.date(2023, 1, 1), datetime.date(2023, 12, 31)))
+                search_period = [date.strftime("%Y-%m-%d") for date in search_period]
+                cloud_cover = st.number_input("Cloud Cover", min_value=0, max_value=100, step=5, value=10)
+                        #pc_button = st.form_submit_button(label='Submit')
 
-show_sat = side.checkbox("Show Sat Imagery")
+        show_sat = side.checkbox("Show Sat Imagery")
 
-if show_sat:
-        try:
-                catalog = pystac_client.Client.open(
-                        "https://planetarycomputer.microsoft.com/api/stac/v1",
-                        modifier=pc.sign_inplace)
+        if show_sat:
+                try:
+                        catalog = pystac_client.Client.open(
+                                "https://planetarycomputer.microsoft.com/api/stac/v1",
+                                modifier=pc.sign_inplace)
 
-                if collection=="sentinel-2-l2a":
-                        search = catalog.search(
-                                collections=[collection],
-                                query = {"s2:mgrs_tile": dict(eq=tile),
-                                        "eo:cloud_cover": {"lt": cloud_cover}},
-                                datetime=[search_period[0], search_period[1]],
-                                )
-                elif collection=="landsat-c2-l2":
-                        search = catalog.search(
-                                collections=[collection],
-                                query = {"landsat:wrs_path": dict(eq=tile[:3]),
-                                        "landsat:wrs_row": dict(eq=tile[3:]),
-                                        "eo:cloud_cover": {"lt": cloud_cover}},
-                                datetime=[search_period[0], search_period[1]],
-                                )
+                        if collection=="sentinel-2-l2a":
+                                search = catalog.search(
+                                        collections=[collection],
+                                        query = {"s2:mgrs_tile": dict(eq=tile),
+                                                "eo:cloud_cover": {"lt": cloud_cover}},
+                                        datetime=[search_period[0], search_period[1]],
+                                        )
+                        elif collection=="landsat-c2-l2":
+                                search = catalog.search(
+                                        collections=[collection],
+                                        query = {"landsat:wrs_path": dict(eq=tile[:3]),
+                                                "landsat:wrs_row": dict(eq=tile[3:]),
+                                                "eo:cloud_cover": {"lt": cloud_cover}},
+                                        datetime=[search_period[0], search_period[1]],
+                                        )
 
-                ic = search.item_collection_as_dict()
-        except:
-                st.markdown("Sometimes Planetary Computer does not like us...The request exceeded the maximum allowed time. Please try again later!")
+                        ic = search.item_collection_as_dict()
+                except:
+                        st.markdown("Sometimes Planetary Computer does not like us...The request exceeded the maximum allowed time. Please try again later!")
 
 
-        st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
-        if len(ic["features"])>1:
-                n_sat = side.slider("", min_value=1, max_value=len(ic["features"]), value=1)
-        else: n_sat = 1
-        n_sat = (len(ic["features"])+1) - n_sat
-        st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
-        pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
-                     ["red", "blue", "green", "nir08", "swir16", "swir22", "NDVI"]]
-        #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
-        band = side.text_input("Band, Band Combination, NDVI or an expression", "NDVI")
-        
+                st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
+                if len(ic["features"])>1:
+                        n_sat = side.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+                else: n_sat = 1
+                n_sat = (len(ic["features"])+1) - n_sat
+                st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
+                pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
+                        ["red", "blue", "green", "nir08", "swir16", "swir22", "NDVI"]]
+                #band = st.multiselect("Bands", pos_bands[0] if collection=="sentinel-2-l2a" else pos_bands[1], default="NDVI")
+                band = side.text_input("Band, Band Combination, NDVI or an expression", "NDVI")
+                
 
 
 
