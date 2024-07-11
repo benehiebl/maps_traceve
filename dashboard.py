@@ -187,4 +187,4 @@ except: pass
 
 
 #m2.to_html("./map_sibgen.html")
-m2.to_streamlit()
+m2.to_streamlit(height=1000, bidirectional=True)
