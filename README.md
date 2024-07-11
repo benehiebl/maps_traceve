@@ -16,6 +16,9 @@ https://mapstraceve.streamlit.app/
   ![sat_img](./misc/sat_img.png)
 - Use the slider to select a date and the textbox to choose the bands
 - Choose a combination of 3 bands for false color imagery (e.g. B04,B03,B02 for True Color or B08,B04,B03 for Color Infrared or B12,B04,B03 for False Color)
+- Use an expression for calculating indices (e.g. for NDMI: exp:(B08-B11)/(B08+B11))
+- Landsat bands are: blue, green, red, nir08, swir16, swir22
+- Sentinel-2 bands are: B02, B03, B04, B05, B06, B07,..., SCL
    ![color_inf](./misc/color_inf.png)
 
 TIPP: Fullscreen button is on the left...

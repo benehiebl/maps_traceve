@@ -28,7 +28,7 @@ st.header("TRACEVE forest type and cover maps")
 #st.subheader("Interact with this dashboard using the widgets on the sidebar")
 st.markdown("- forest type maps were produced based on Italian Forest Vegetation Base and annual Sentinel-2 time series from 2017 to 2023 using an InceptionTime ensemble\n" \
             "- cover maps were produced using the Vegetation Plot observation collected in Sibillini and Gennargentu Nationalpark and an aggregated annual Sentinel-2 time series\n\n" \
-        "NOTE: drag the forest type legend to avoid overlaps...")
+        "**TIPP:** Use the full-screen button on the left side for a better experience (but make sure to memorize the legend/colormap befor... :D")
 
 
 
