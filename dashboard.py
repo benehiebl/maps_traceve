@@ -53,32 +53,36 @@ with st.popover("Planetary Computer STAC Catalog"):
 show_sat = st.checkbox("Show Sat Imagery")
 
 if show_sat:
-        
-        catalog = pystac_client.Client.open(
-                "https://planetarycomputer.microsoft.com/api/stac/v1",
-                modifier=pc.sign_inplace)
+        try:
+                catalog = pystac_client.Client.open(
+                        "https://planetarycomputer.microsoft.com/api/stac/v1",
+                        modifier=pc.sign_inplace)
 
-        if collection=="sentinel-2-l2a":
-                search = catalog.search(
-                        collections=[collection],
-                        query = {"s2:mgrs_tile": dict(eq=tile),
-                                "eo:cloud_cover": {"lt": cloud_cover}},
-                        datetime=[search_period[0], search_period[1]],
-                        )
-        elif collection=="landsat-c2-l2":
-                search = catalog.search(
-                        collections=[collection],
-                        query = {"landsat:wrs_path": dict(eq=tile[:3]),
-                                "landsat:wrs_row": dict(eq=tile[3:]),
-                                "eo:cloud_cover": {"lt": cloud_cover}},
-                        datetime=[search_period[0], search_period[1]],
-                        )
+                if collection=="sentinel-2-l2a":
+                        search = catalog.search(
+                                collections=[collection],
+                                query = {"s2:mgrs_tile": dict(eq=tile),
+                                        "eo:cloud_cover": {"lt": cloud_cover}},
+                                datetime=[search_period[0], search_period[1]],
+                                )
+                elif collection=="landsat-c2-l2":
+                        search = catalog.search(
+                                collections=[collection],
+                                query = {"landsat:wrs_path": dict(eq=tile[:3]),
+                                        "landsat:wrs_row": dict(eq=tile[3:]),
+                                        "eo:cloud_cover": {"lt": cloud_cover}},
+                                datetime=[search_period[0], search_period[1]],
+                                )
 
-        ic = search.item_collection_as_dict()
+                ic = search.item_collection_as_dict()
+        except:
+                st.markdown("Sometimes Planetary Computer does not like us...The request exceeded the maximum allowed time. Please try again later!")
+
 
         st.markdown(f'**Found {len(ic["features"])} items for {tile}**')
-
-        n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+        if len(ic["features"])>1:
+                n_sat = st.slider("", min_value=1, max_value=len(ic["features"]), value=1)
+        else: n_sat = 1
         n_sat = (len(ic["features"])+1) - n_sat
         st.markdown(f'**Selected Item:    {ic["features"][n_sat-1]["properties"]["datetime"][:10]}**')
         pos_bands = [["B02", "B03", "B04", "B05", "B06", "B06", "B07", "B08", "B11", "B12", "SCL", "NDVI"], 
