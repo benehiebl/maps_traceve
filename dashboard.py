@@ -101,8 +101,7 @@ with side.container(border=True):
 
 
 
-
-
+side.markdown("You can fin further information on usage and data [here](https://github.com/benehiebl/maps_traceve)")
 
 
 
