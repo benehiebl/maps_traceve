@@ -16,12 +16,15 @@ vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/v
 eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
 dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
 class_name = 'https://api.ellipsis-drive.com/v3/path/e6c55e3d-154f-4f61-b477-128a4af5fd81/raster/timestamp/e8234b7e-c85a-461a-a12a-99754b1a72ed/tile/{z}/{x}/{y}?style=d68b956d%2d541d%2d4256%2d8901%2d8ef163c7a33c&token=epat_Kkh0lVilBZMTZFwzvyBP5IkYqQBH3cZLjPU333j30KmJlBATsYdRI4gODBANy9rW'
+eu2_name = 'https://api.ellipsis-drive.com/v3/path/65441cd0-f8cb-4a9a-bfe0-ef1e7b551dcc/raster/timestamp/8b211c93-c39a-4622-98fa-fe10eb4ba7f3/tile/{z}/{x}/{y}?style=d34348a3%2d7b23%2d48c4%2d8e91%2ddcb27e108c26&token=epat_eQcP9vZi3acEIAAtnuoKserzTloNNOFlErx1e6hSEq7h6tel1g27IvX57YgbWLaP'
 sib_eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_eve.wgs84.COG.tif"
 sib_dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/sib_cover_dec.wgs84.COG.tif"
 sib_class_name = "https://api.ellipsis-drive.com/v3/path/2b46a0fb-bbb8-47fa-84b5-31b707e6ea50/raster/timestamp/e5831b26-33d5-4463-b5e0-f0408004d3b8/tile/{z}/{x}/{y}?style=8dd14ae9%2d5d1a%2d4efe%2dadeb%2db9792b175099&token=epat_uMqm47CrbhbMCKKt9wjGG2IZsPntPh7bHfAl9nxrP1kjpuFd9efOR1zSam6pbyRx"
 
 colors = [(255, 113, 36), (1, 3, 131), (164, 227, 157), (114, 124, 216), (12, 201, 2), (12, 89, 1), (7, 37, 233)]
 labels = ["azonal", "boreal", "mediterranean broad", "mediterranean needle", "submediterranean", "temperate broad", "temperate needle"]
+colors_eu2 = [(143, 239, 138), (12, 207, 9), (6, 105, 1)]
+labels_eu2 = ["evergreen broad-leaved", "deciduous broad-leaved", "evergreen needle-leaved"]
 
 # To set a webpage title, header and subtitle
 st.set_page_config(page_title = "TRACEVE forest type and cover maps",layout = 'wide')
@@ -145,6 +148,10 @@ m2.add_tile_layer(url=class_name,
                   name="Gennargentu forest type",
                   attribution="gen_classes")
 
+m2.add_tile_layer(url=eu2_name,
+                  name="Gennargentu EU2 forest type",
+                  attribution="gen_eu2")
+
 m2.add_cog_layer(eve_name,
         vmin=0, vmax=100,
         colormap_name="greens",
@@ -180,6 +187,7 @@ if img_sel:
             m2.add_circle_markers_from_xy(vpos, popup="img", max_width=550)
 
 m2.add_legend(title="Forest Type", labels=labels, colors=colors, draggable=True, position="topright")
+m2.add_legend(title="EU2 Forest Type", labels=labels_eu2, colors=colors_eu2, draggable=True, position="topright")
 m2.add_colormap(label="Cover %", cmap="Greens", vmin=0, vmax=100, position=(6,1), width=3, height=0.2, label_size=9, transparent=True)
 
 try:
