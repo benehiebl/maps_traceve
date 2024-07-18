@@ -107,94 +107,104 @@ with side.container(border=True):
 side.markdown("\n\n**You can find further information on usage and data [here](https://github.com/benehiebl/maps_traceve)**")
 
 
-
-m2 = leafmap.Map(basemap="Esri.WorldImagery", height=2000)#, height="1000px", width="1500px")
-m2.add_basemap("Esri.WorldTopoMap")
-m2.add_basemap("Esri.WorldImagery")
+#if "map" not in st.session_state:
+m = leafmap.Map(basemap="Esri.WorldImagery", height=2000)#, height="1000px", width="1500px")
+#st.markdown(m.get_zoom())
+#m2 = st.session_state["map"]
+m.add_basemap("Esri.WorldTopoMap")
+m.add_basemap("Esri.WorldImagery")
 
 if show_sat:
         if band.startswith("exp:"):
                 st.write(band[4:])
-                m2.add_stac_layer(collection=collection,
-                              item=ic["features"][n_sat-1]["id"],
-                              expression=band[4:],
-                              rescale="-1,1",
-                              colormap_name="reds",
-                              #vmin=0, vmax=1,
-                              name=band)  
-                m2.add_colormap(label=band,
+                m.add_stac_layer(collection=collection,
+                        item=ic["features"][n_sat-1]["id"],
+                        expression=band[4:],
+                        rescale="-1,1",
+                        colormap_name="reds",
+                        #vmin=0, vmax=1,
+                        name=band)  
+                m.add_colormap(label=band,
                                 cmap="Reds",
                                 vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
         if band=="NDVI":
-                m2.add_stac_layer(collection=collection,
-                              item=ic["features"][n_sat-1]["id"],
-                              expression="(B08-B04)/(B08+B04)" if collection=="sentinel-2-l2a" else "(nir08-red)/(nir08+red)",
-                              rescale="-1,1",
-                              colormap_name="brg",
-                              vmin=0, vmax=1,
-                              name="NDVI")  
-                m2.add_colormap(label="NDVI",
+                m.add_stac_layer(collection=collection,
+                        item=ic["features"][n_sat-1]["id"],
+                        expression="(B08-B04)/(B08+B04)" if collection=="sentinel-2-l2a" else "(nir08-red)/(nir08+red)",
+                        rescale="-1,1",
+                        colormap_name="brg",
+                        vmin=0, vmax=1,
+                        name="NDVI")  
+                m.add_colormap(label="NDVI",
                                 cmap="brg",
                                 vmin=-1, vmax=1, position=(25,1), width=3, height=0.2, label_size=9, transparent=True)
         else:
-                m2.add_stac_layer(collection=collection,
-                              item=ic["features"][n_sat-1]["id"],
-                              #expression=band,
-                              assets=band,
-                              name=str(band))
+                m.add_stac_layer(collection=collection,
+                        item=ic["features"][n_sat-1]["id"],
+                        #expression=band,
+                        assets=band,
+                        name=str(band))
 
+#m.add_tile_layer(url=eu2_name,
+#                  name="Gennargentu EU2 forest type",
+#                  attribution="gen_eu2")
 
-m2.add_tile_layer(url=class_name,
-                  name="Gennargentu forest type",
-                  attribution="gen_classes")
+m.add_tile_layer(url=class_name,
+                name="Gennargentu forest type",
+                attribution="gen_classes")
 
-m2.add_tile_layer(url=eu2_name,
-                  name="Gennargentu EU2 forest type",
-                  attribution="gen_eu2")
-
-m2.add_cog_layer(eve_name,
+m.add_cog_layer(eve_name,
         vmin=0, vmax=100,
         colormap_name="greens",
         name="Gennargentu Cover EVE")
 
-m2.add_cog_layer(dec_name,
+m.add_cog_layer(dec_name,
         vmin=0, vmax=100,
         colormap_name="greens",
         name="Gennargentu Cover DEC")
 
-m2.add_tile_layer(url=sib_class_name,
-                  name="Sibillini forest type",
-                  attribution="sib_classes")
+#m.add_tile_layer(url=sib_eu2_name,
+#                  name="Sibillini EU2 forest type",
+#                  attribution="sib_eu2")
 
-m2.add_cog_layer(sib_eve_name,
+m.add_tile_layer(url=sib_class_name,
+                name="Sibillini forest type",
+                attribution="sib_classes")
+
+m.add_cog_layer(sib_eve_name,
         vmin=0, vmax=100,
         colormap_name="greens",
         name="Sibillini Cover EVE")
 
-m2.add_cog_layer(sib_dec_name,
+m.add_cog_layer(sib_dec_name,
         vmin=0, vmax=100,
         colormap_name="greens",
         name="Sibillini Cover DEC")
 
 parks = gpd.read_file(parks_name)[["siteName", "geometry"]]
 style = {"fillColor": "#00000000"}
-m2.add_gdf(parks, layer_name="Parks", style_callback=lambda x: style)
+m.add_gdf(parks, layer_name="Parks", style_callback=lambda x: style)
 
 vpos = gpd.read_file(vpo_name)
 #style = {"fillColor": "#00000000"}
-m2.add_gdf(vpos, layer_name="VPOs")#, style_callback=lambda x: style)
+m.add_gdf(vpos, layer_name="VPOs")#, style_callback=lambda x: style)
 if img_sel:
-            m2.add_circle_markers_from_xy(vpos, popup="img", max_width=550)
+        m.add_circle_markers_from_xy(vpos, popup="img", max_width=550)
 
-m2.add_legend(title="Forest Type", labels=labels, colors=colors, draggable=True, position="topright")
-m2.add_legend(title="EU2 Forest Type", labels=labels_eu2, colors=colors_eu2, draggable=True, position="topright")
-m2.add_colormap(label="Cover %", cmap="Greens", vmin=0, vmax=100, position=(6,1), width=3, height=0.2, label_size=9, transparent=True)
+m.add_legend(title="Forest Type", labels=labels, colors=colors, draggable=True, position="topright")
+m.add_legend(title="EU2 Forest Type", labels=labels_eu2, colors=colors_eu2, draggable=True, position="topright")
+m.add_colormap(label="Cover %", cmap="Greens", vmin=0, vmax=100, position=(6,1), width=3, height=0.2, label_size=9, transparent=True)
 
 try:
-        m2.add_inspector_gui(position='topright', opened=True)
+        m.add_inspector_gui(position='topright', opened=True)
 except: pass
 
+st.session_state["map"] = m
 
-#m2.to_html("./map_sibgen.html")
-m2.to_streamlit(height=800)
+
+map_st = st.session_state["map"].to_streamlit(height=800)
+st.markdown(map_st)
+
+#st.session_state["map"].to_html("./map_sibgen.html")
+
 #st_data = st_folium(m2, height=1000)
