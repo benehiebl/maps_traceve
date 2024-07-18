@@ -145,9 +145,9 @@ if show_sat:
                         assets=band,
                         name=str(band))
 
-#m.add_tile_layer(url=eu2_name,
-#                  name="Gennargentu EU2 forest type",
-#                  attribution="gen_eu2")
+m.add_tile_layer(url=eu2_name,
+                  name="Gennargentu EU2 forest type",
+                  attribution="gen_eu2")
 
 m.add_tile_layer(url=class_name,
                 name="Gennargentu forest type",
