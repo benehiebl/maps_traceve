@@ -12,7 +12,7 @@ import streamlit as st
 
 
 parks_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/parks.geojson"
-vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo_v1.geojson"
+vpo_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/vpo.geojson"
 eve_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_eve.wgs84.COG.tif"
 dec_name = "https://raw.githubusercontent.com/benehiebl/maps_traceve/main/data/gen_cover_dec.wgs84.COG.tif"
 class_name = 'https://api.ellipsis-drive.com/v3/path/e6c55e3d-154f-4f61-b477-128a4af5fd81/raster/timestamp/e8234b7e-c85a-461a-a12a-99754b1a72ed/tile/{z}/{x}/{y}?style=d68b956d%2d541d%2d4256%2d8901%2d8ef163c7a33c&token=epat_Kkh0lVilBZMTZFwzvyBP5IkYqQBH3cZLjPU333j30KmJlBATsYdRI4gODBANy9rW'
