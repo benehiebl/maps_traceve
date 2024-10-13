@@ -1,6 +1,5 @@
 {
 "type": "FeatureCollection",
-"name": "vpo",
 "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "id": "100_cil", "cell": "cil_1764", "site": "cil_1764_1856433", "altitude": 342.0, "aspect": 270.0, "latitude": 40.358383064611665, "longitude": 15.26396776804263, "plot_lon": 15.26396776804263, "plot_lat": 40.358383064611665, "cover_eve_broad": 30.534220235079999, "cover_dec_broad": 88.2845275838948, "cover_eve_needle": 4.06603, "img_names": "../imgs/plot_100_cil.jpg", "img": "<img src='https://raw.githubusercontent.com/benehiebl/maps_traceve/main/imgs/plot_100_cil.jpg' width=500>" }, "geometry": { "type": "Point", "coordinates": [ 15.26396776804263, 40.358383064611665 ] } },
