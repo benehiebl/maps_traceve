@@ -201,9 +201,8 @@ except: pass
 
 st.session_state["map"] = m
 
-
-#map_st = st.session_state["map"].to_streamlit(height=800)
-#st.markdown(map_st)
+map_st = st.session_state["map"].to_streamlit(height=800)
+st.markdown(map_st)
 
 #st.session_state["map"].to_html("./map_sibgen.html")
 
